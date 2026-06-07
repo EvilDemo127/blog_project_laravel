@@ -19,7 +19,8 @@ class CommentFactory extends Factory
     {
         return [
             'content'=>fake()->paragraph(5),
-            'article_id'=>rand(1,20)
+            'article_id'=>rand(1,20),
+            'user_id'=>rand(1,20)
         ];
     }
 }

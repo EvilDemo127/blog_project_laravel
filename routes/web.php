@@ -11,14 +11,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/articles',[ArticleController::class,'index']);
+// Route::get('/',[ArticleController::class,'index']);
+Route::get('/',[ArticleController::class,'index']);
 Route::get('/details/{id}',[ArticleController::class,'detail']);
 Route::get('/delete/{id}',[ArticleController::class,'delete']);
 Route::get('/articles/add',[ArticleController::class,'add']);
+Route::get('/articles/profile',[ArticleController::class,'profile']);
 Route::post('/articles/create',[ArticleController::class,'create']);
-Route::get('/comment/delete{id}',[CommentController::class,'delete']);
 Route::post('/comment/add',[CommentController::class,'add']);
+Route::get('/comment/delete/{id}',[CommentController::class,'delete']);
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

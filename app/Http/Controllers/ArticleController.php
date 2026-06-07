@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index','detail');
     }
 
     public function index(){
@@ -21,6 +23,11 @@ class ArticleController extends Controller
     public function detail($id){
             $data = Article::find($id);
             return view('articles.details',['data'=>$data]);
+    }
+
+    public function profile(){
+        $data =User::find(Auth::id());
+        return view('articles.profile',['data'=>$data]);
     }
 
     public function add()
@@ -39,12 +46,15 @@ class ArticleController extends Controller
         $article->body=request()->body;
         $article->category_id=request()->category_id;
         $article->save();
-        return redirect('/articles');
+        return redirect('/');
     }
 
     public function delete($id){
         $data=Article::find($id);
+        if(Auth::id() != $data->id){
+            return back()->with('info','U have not access');
+        }
         $data->delete();
-        return redirect('/articles')->with('info','Deleting success');
+        return redirect('/')->with('info','Deleting success');
     }
 }
