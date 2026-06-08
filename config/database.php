@@ -3,6 +3,20 @@
 use Illuminate\Support\Str;
 use Pdo\Mysql;
 
+if (env('DATABASE_URL')) {
+    $dbUrl = parse_url(env('DATABASE_URL'));
+    
+    if (isset($dbUrl['host'])) {
+        config([
+            'database.connections.pgsql.host' => $dbUrl['host'],
+            'database.connections.pgsql.port' => $dbUrl['port'] ?? 5432,
+            'database.connections.pgsql.database' => ltrim($dbUrl['path'], '/'),
+            'database.connections.pgsql.username' => $dbUrl['user'] ?? null,
+            'database.connections.pgsql.password' => $dbUrl['pass'] ?? null,
+        ]);
+    }
+}
+
 return [
 
     /*
