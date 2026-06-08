@@ -3,7 +3,7 @@ FROM php:8.2-fpm-alpine
 
 RUN apk add --no-cache nginx supervisor shadow bash \
     libpng-dev libjpeg-turbo-dev freetype-dev libxml2-dev libzip-dev zip unzip git \
-    && docker-php-ext-configure gdu --with-freetype --with-jpeg \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo_mysql bcmath gd zip opcache
 
 
