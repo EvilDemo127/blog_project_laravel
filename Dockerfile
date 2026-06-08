@@ -13,10 +13,12 @@ RUN apk add --no-cache \
     libjpeg-turbo-dev \
     freetype-dev \
     libxml2-dev \
-    libzip-dev
+    libzip-dev \
+    postgresql-dev
 
-RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
-    && docker-php-ext-install pdo_mysql bcmath gd zip opcache
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql pdo_pgsql pgsql bcmath gd zip opcache
+
 
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
