@@ -35,4 +35,4 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 EXPOSE 10000
 
-CMD ["sh", "-c", "php artisan config:cache && php artisan route:cache && php artisan view:cache && php -S 0.0.0.0:10000 -t public"]
+CMD ["sh", "-c", "php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan migrate --force && php -S 0.0.0.0:10000 -t public"]
